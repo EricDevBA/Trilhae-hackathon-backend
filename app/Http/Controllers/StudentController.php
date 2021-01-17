@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Student;
-use App\Models\User;
 use App\Http\Controllers\Controller;
 
 class StudentController extends Controller
@@ -23,13 +22,13 @@ class StudentController extends Controller
 
     public function store(Request $request){
         $request->validate([
-            'name' => 'required',
+            'full_name' => 'required',
             'course' => 'required',
             'address' => 'required',
             'mobile' => 'required'
         ]);
             $students = new Student;
-            $students->name = $request->input('name');
+            $students->full_name = $request->input('full_name');
             $students->course = $request->input('course');
             $students->address = $request->input('address');
             $students->mobile = $request->input('mobile');
@@ -52,14 +51,14 @@ class StudentController extends Controller
 
     public function update(Request $request,$id){
         $request->validate([
-            'name' => 'required',
+            'full_name' => 'required',
             'course' => 'required',
             'address' => 'required',
             'mobile' => 'required',
         ]);
 
         $students = Student::find($id);
-        $students->name = $request->input('name');
+        $students->full_name = $request->input('full_name');
         $students->course = $request->input('course');
         $students->address = $request->input('address');
         $students->mobile = $request->input('mobile');

@@ -19,4 +19,4 @@ Route::get('/', function () {
 
 Route::resource('/students', 'StudentController');
 
-Route::get('/add-data', 'StudentController');
+Route::get('/add-data', 'StudentController@create');

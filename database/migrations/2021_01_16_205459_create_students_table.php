@@ -21,7 +21,10 @@ class CreateStudentsTable extends Migration
             $table->string('address');
             $table->string('coumname', 255);
             $table->string('email');
-            $table->integer('phone_number');
+            $table->string('phone_number');
+
+            $table->dropColumn('coumname');
+
 
         });
     }
