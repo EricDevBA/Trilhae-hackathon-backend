@@ -17,6 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('/students', 'StudentController');
+Route::resource('students', StudentController::class);
 
-Route::get('/add-data', 'StudentController@create');
+//Route::get('/add-data', 'StudentController@create');
+//Route::post('/add-data', 'StudentController@store')->name('registrar_estudante');

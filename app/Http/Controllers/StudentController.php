@@ -11,30 +11,27 @@ class StudentController extends Controller
     public function index(){
 
 
-    $students = Student::all();
-    return view('studentform', compact('students', $students));
+        $students = Student::all();
+        return view('index', compact('students'));
 
     }
 
     public function create(){
-        return view('addstudent');
+        return view('create');
     }
 
     public function store(Request $request){
-        $request->validate([
+    $storeData = $request->validate([
             'full_name' => 'required',
             'course' => 'required',
             'address' => 'required',
-            'mobile' => 'required'
+            'email' => 'required',
+            'phone_number' => 'required'
         ]);
-            $students = new Student;
-            $students->full_name = $request->input('full_name');
-            $students->course = $request->input('course');
-            $students->address = $request->input('address');
-            $students->mobile = $request->input('mobile');
-            $students->save();
-            return redirect('students/')->with('success', 'Data added successfully');
 
+        $students = Student::create($storeData);
+
+            return redirect('/students')->with('completed', 'Student has been saved!');
 
     }
 
@@ -44,36 +41,33 @@ class StudentController extends Controller
 
     public function edit($id){
 
-        $students = Student::find($id);
-        return view('studenteditdata',compact('students','id'));
+        $students = Student::findOrFail($id);
+        return view('edit', compact('students'));
 
     }
 
     public function update(Request $request,$id){
-        $request->validate([
+      $updateData = $request->validate([
             'full_name' => 'required',
             'course' => 'required',
             'address' => 'required',
-            'mobile' => 'required',
+            'email' => 'required',
+            'phone_number' => 'required',
         ]);
 
-        $students = Student::find($id);
-        $students->full_name = $request->input('full_name');
-        $students->course = $request->input('course');
-        $students->address = $request->input('address');
-        $students->mobile = $request->input('mobile');
-        $students->save();
+        Student::whereId($id)->update($updateData);
 
-        return redirect('/students')->with('success', 'Data updated successfully');
+
+        return redirect('/students')->with('completed', 'Student has been updated');
 
     }
 
 
     public function destroy($id){
-       $students = Student::find($id);
+        $students = Student::findOrFail($id);
         $students->delete();
 
-        return redirect('/students')->with('success', 'Data deleted successfully');
+        return redirect('/students')->with('completed', 'Student has been deleted');
     }
 
 
